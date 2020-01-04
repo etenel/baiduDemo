@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">demo</string>
+    <string name="take_photo">拍照</string>
+    <string name="face_result">人脸分析结果</string>
+    <string name="age">年龄：</string>
+    <string name="sex">性别：</string>
+    <string name="race">种族：</string>
+    <string name="beauty">颜值：</string>
+    <string name="expression">表情：</string>
+    <string name="emotion">情绪：</string>
+    <string name="glasses">眼镜：</string>
+</resources>
