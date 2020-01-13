@@ -27,7 +27,7 @@ object LocationUtils {
         locationClientOption?.locationMode = LocationClientOption.LocationMode.Hight_Accuracy
         locationClientOption?.coorType = "bd0911"
         locationClientOption?.setIsNeedAddress(true)
-        locationClientOption?.scanSpan = 5000
+        locationClientOption?.scanSpan = 1000
         locationClient?.locOption = locationClientOption
         locationClient?.registerLocationListener(locationListener)
         locationListener?.setOnReceiveLocation(object : MylocationListener.OnReceiveLocation {

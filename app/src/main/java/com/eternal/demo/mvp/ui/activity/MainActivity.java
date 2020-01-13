@@ -149,11 +149,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     @Override
                     public void onGranted() {
                         fotoapparat = createFotoapparat();
+                        fotoapparat.start();
                         //百度地图初始化log提示error-code -10问题 https://developer.baidu.com/topic/show/290280
                         LocationUtils.INSTANCE.init().startLocation().setOnReceiveLocation(new LocationUtils.OnReceiveLocation() {
                             @Override
                             public void receiveLocation(@NotNull BDLocation location) {
-                            //   ToastUtils.showShort("地址"+location.getAddress().address+"\n经度:"+location.getLongitude()+"纬度:"+location.getLatitude());
+                                LogUtils.e("地址" + location.getAddress().address + "\n经度:" + location.getLongitude() + "纬度:" + location.getLatitude());
+                                if (!isDestroyed()) {
+                                    binding.tvAddress.setText("地址" + location.getAddress().address + "\n经度:" + location.getLongitude() + "纬度:" + location.getLatitude());
+                                }
                             }
                         });
                     }
@@ -165,7 +169,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 })
                 .request();
 
-       // timeInterval(interval);
+        // timeInterval(interval);
     }
 
     /**
@@ -179,7 +183,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> {
-                    if(disposable.isDisposed()) {
+                    if (disposable.isDisposed()) {
                         return;
                     }
                     binding.takePhoto.performClick();
@@ -195,7 +199,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     protected void onStart() {
         super.onStart();
-        fotoapparat.start();
+        if (PermissionUtils.isGranted(PermissionConstants.CAMERA)) {
+            fotoapparat.start();
+        }
     }
 
     @Override
@@ -209,7 +215,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
         }
-        fotoapparat.stop();
+        if (PermissionUtils.isGranted(PermissionConstants.CAMERA)) {
+            fotoapparat.stop();
+        }
         super.onStop();
 
     }
