@@ -9,4 +9,6 @@
     <string name="expression">表情：</string>
     <string name="emotion">情绪：</string>
     <string name="glasses">眼镜：</string>
+    <string name="scan_face">人脸检测和属性分析</string>
+    <string name="map_location">地图定位</string>
 </resources>

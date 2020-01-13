@@ -88,37 +88,7 @@ import static io.fotoapparat.selector.SensorSensitivitySelectorsKt.highestSensor
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
 
     private ActivityMainBinding binding;
-    private Fotoapparat fotoapparat;
-    private Disposable disposable;
-    private long interval = 5;
 
-    private class SampleFrameProcessor implements FrameProcessor {
-        @Override
-        public void process(@NotNull Frame frame) {
-            // Perform frame processing, if needed
-        }
-    }
-
-    private Fotoapparat createFotoapparat() {
-        return Fotoapparat
-                .with(this)
-                .into(binding.cameraView)
-                .focusView(binding.focusView)
-                .previewScaleType(ScaleType.CenterCrop)
-                .lensPosition(back())
-                .frameProcessor(new SampleFrameProcessor())
-                .logger(loggers(
-                        logcat(),
-                        fileLogger(this)
-                ))
-                .cameraErrorCallback(new CameraErrorListener() {
-                    @Override
-                    public void onError(@NotNull CameraException e) {
-                        Toast.makeText(MainActivity.this, e.toString(), Toast.LENGTH_LONG).show();
-                    }
-                })
-                .build();
-    }
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -139,6 +109,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public void initData(@Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setLifecycleOwner(this);
+        LocationUtils.INSTANCE.init().startLocation();
         long currentTimeMillis = System.currentTimeMillis() / 1000;
         //提前一天刷新token
         if (TextUtils.isEmpty(Constant.token) || Constant.expires - currentTimeMillis < 86400) {
@@ -148,18 +119,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 .callback(new PermissionUtils.SimpleCallback() {
                     @Override
                     public void onGranted() {
-                        fotoapparat = createFotoapparat();
-                        fotoapparat.start();
-                        //百度地图初始化log提示error-code -10问题 https://developer.baidu.com/topic/show/290280
-                        LocationUtils.INSTANCE.init().startLocation().setOnReceiveLocation(new LocationUtils.OnReceiveLocation() {
-                            @Override
-                            public void receiveLocation(@NotNull BDLocation location) {
-                                LogUtils.e("地址" + location.getAddress().address + "\n经度:" + location.getLongitude() + "纬度:" + location.getLatitude());
-                                if (!isDestroyed()) {
-                                    binding.tvAddress.setText("地址" + location.getAddress().address + "\n经度:" + location.getLongitude() + "纬度:" + location.getLatitude());
-                                }
-                            }
-                        });
+
                     }
 
                     @Override
@@ -169,57 +129,22 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 })
                 .request();
 
-        // timeInterval(interval);
-    }
-
-    /**
-     * 自动拍照
-     *
-     * @param time 拍照间隔时间
-     */
-    private void timeInterval(long time) {
-        //五秒自动拍一次照
-        disposable = Observable.interval(0, time, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aLong -> {
-                    if (disposable.isDisposed()) {
-                        return;
-                    }
-                    binding.takePhoto.performClick();
-                });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (PermissionUtils.isGranted(PermissionConstants.CAMERA)) {
-            fotoapparat.start();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //timeInterval(interval);
-    }
-
-    @Override
-    protected void onStop() {
-        if (disposable != null && !disposable.isDisposed()) {
-            disposable.dispose();
-        }
-        if (PermissionUtils.isGranted(PermissionConstants.CAMERA)) {
-            fotoapparat.stop();
-        }
-        super.onStop();
-
+        binding.scanFace.setOnClickListener(v -> {
+            if (!PermissionUtils.isGranted(PermissionConstants.CAMERA)) {
+                Intent intent = new Intent(this, FaceScanActivity.class);
+                startActivity(intent);
+            } else {
+                ToastUtils.showShort("没有相机权限");
+            }
+        });
+        binding.map.setOnClickListener(v -> {
+            if (!PermissionUtils.isGranted(PermissionConstants.LOCATION)) {
+                Intent intent = new Intent(this, MapActivity.class);
+                startActivity(intent);
+            } else {
+                ToastUtils.showShort("没有定位权限");
+            }
+        });
     }
 
     @Override
@@ -249,17 +174,5 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         finish();
     }
 
-    public void takePhoto(View view) {
-        if (TextUtils.isEmpty(Constant.token)) {
-            return;
-        }
-        PhotoResult photoResult = fotoapparat.autoFocus().takePicture();
-        photoResult.toBitmap().whenDone(bitmapPhoto -> {
-            if (bitmapPhoto != null) {
-                mPresenter.sendFace(BitmapUtils.rotateBitmap(bitmapPhoto.bitmap, -bitmapPhoto.rotationDegrees));
-                bitmapPhoto.bitmap.recycle();
-            }
-        });
 
-    }
 }
