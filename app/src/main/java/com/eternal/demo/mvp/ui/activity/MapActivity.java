@@ -119,12 +119,18 @@ public class MapActivity extends BaseActivity<MapPresenter> implements MapContra
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_map);
+        LocationUtils.INSTANCE.init().startLocation().setOnReceiveLocation(new LocationUtils.OnReceiveLocation() {
+            @Override
+            public void receiveLocation(@NotNull BDLocation location) {
+                binding.tvAddress.setText(String.format("地址：%s 经度:%s纬度:%s", location.getAddrStr(), location.getLongitude(), location.getLatitude()));
+            }
+        });
         //百度地图初始化log提示error-code -10问题 https://developer.baidu.com/topic/show/290280
         baiduMap = binding.mapView.getMap();
         mLocClient = new LocationClient(this);
         mMapStatus = new MapStatus.Builder().zoom(14f).build();
         baiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(mMapStatus));
-//        // 设置地图监听，当地图状态发生改变时，进行点聚合运算
+        // 设置地图监听，当地图状态发生改变时，进行点聚合运算
         baiduMap.setOnMapLoadedCallback(new BaiduMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
