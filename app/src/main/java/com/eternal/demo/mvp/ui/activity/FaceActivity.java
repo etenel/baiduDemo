@@ -80,7 +80,7 @@ public class FaceActivity extends BaseActivity<FacePresenter> implements FaceCon
         facePictureAdapter.setPath(path);
         facePictureAdapter.setAllPosition(faceResult.getResult().getFace_list().size());
         facePictureAdapter.setNewData(faceResult.getResult().getFace_list());
-
+        binding.ivClose.setOnClickListener(v->finish());
     }
 
     @Override

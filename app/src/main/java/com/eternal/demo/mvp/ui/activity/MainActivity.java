@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.baidu.location.BDLocation;
 import com.blankj.utilcode.constant.PermissionConstants;
+import com.blankj.utilcode.util.BarUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -108,6 +109,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        BarUtils.setStatusBarColor(this,getResources().getColor(R.color.transtant));
         binding.setLifecycleOwner(this);
         LocationUtils.INSTANCE.init().startLocation();
         long currentTimeMillis = System.currentTimeMillis() / 1000;

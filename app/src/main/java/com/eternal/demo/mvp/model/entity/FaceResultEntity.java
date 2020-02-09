@@ -403,7 +403,11 @@ public class FaceResultEntity implements Serializable {
                 private double probability;
 
                 public String getType() {
-                    return type;
+                    if("female".equals(type)) {
+                        return "女";
+                    }else {
+                        return "男";
+                    }
                 }
 
                 public void setType(String type) {

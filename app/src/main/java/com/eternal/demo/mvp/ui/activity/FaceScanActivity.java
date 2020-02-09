@@ -119,7 +119,7 @@ public class FaceScanActivity extends BaseActivity<FaceScanPresenter> implements
         binding = DataBindingUtil.setContentView(this, R.layout.activity_face_scan);
         binding.setLifecycleOwner(this);
         fotoapparat = createFotoapparat();
-
+        binding.ivClose.setOnClickListener(v->finish());
         // timeInterval(interval);
     }
 

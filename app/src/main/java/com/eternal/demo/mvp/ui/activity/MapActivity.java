@@ -164,6 +164,7 @@ public class MapActivity extends BaseActivity<MapPresenter> implements MapContra
                 .fillColor(getResources().getColor(R.color.blue)) //填充颜色
                 .stroke(new Stroke(5, getResources().getColor(R.color.light_blue)));
         initLocation();
+        binding.ivClose.setOnClickListener(v->finish());
     }
 
     //更改辐射半径

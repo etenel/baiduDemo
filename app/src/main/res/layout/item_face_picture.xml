@@ -8,9 +8,11 @@
         <variable
             name="path"
             type="String" />
-<variable
-    name="position"
-    type="String" />
+
+        <variable
+            name="position"
+            type="String" />
+
         <variable
             name="result"
             type="com.eternal.demo.mvp.model.entity.FaceResultEntity.ResultBean.FaceListBean" />
@@ -18,8 +20,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@android:color/darker_gray"
         android:layout_height="match_parent"
+        android:background="@android:color/darker_gray"
         android:orientation="vertical">
 
         <com.eternal.demo.FaceImageView
@@ -38,92 +40,93 @@
             style="@style/textStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
             android:text="@{@string/age+result.age}"
-            tools:text="年龄"
-            tools:textColor="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="年龄"
+            tools:textColor="@color/colorPrimary" />
+
         <TextView
             android:id="@+id/tv_sex"
             style="@style/textStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="性别"
-            tools:textColor="@color/colorPrimary"
+            android:layout_marginStart="14dp"
             android:text="@{@string/sex+result.gender.type}"
-            app:layout_constraintTop_toBottomOf="@+id/tv_age"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-           />
+            app:layout_constraintTop_toBottomOf="@+id/tv_age"
+            tools:text="性别"
+            tools:textColor="@color/colorPrimary" />
+
         <TextView
             android:id="@+id/tv_race"
             style="@style/textStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="种族"
-            tools:textColor="@color/colorPrimary"
             android:text="@{@string/race+result.race.type}"
-            app:layout_constraintTop_toBottomOf="@+id/tv_sex"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="14dp"
             app:layout_constraintStart_toStartOf="parent"
-           />
+            app:layout_constraintTop_toBottomOf="@+id/tv_sex"
+            tools:text="种族"
+            tools:textColor="@color/colorPrimary" />
+
         <TextView
             android:id="@+id/tv_beauty"
             style="@style/textStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="颜值"
-            tools:textColor="@color/colorPrimary"
             android:text="@{@string/beauty+result.beauty}"
-            app:layout_constraintTop_toBottomOf="@+id/tv_race"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="14dp"
             app:layout_constraintStart_toStartOf="parent"
-           />
+            app:layout_constraintTop_toBottomOf="@+id/tv_race"
+            tools:text="颜值"
+            tools:textColor="@color/colorPrimary" />
+
         <TextView
             android:id="@+id/tv_expression"
             style="@style/textStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="表情"
-            tools:textColor="@color/colorPrimary"
             android:text="@{@string/expression+result.expression.type}"
-            app:layout_constraintTop_toBottomOf="@+id/tv_beauty"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="14dp"
             app:layout_constraintStart_toStartOf="parent"
-           />
+            app:layout_constraintTop_toBottomOf="@+id/tv_beauty"
+            tools:text="表情"
+            tools:textColor="@color/colorPrimary" />
+
         <TextView
             android:id="@+id/tv_emotion"
             style="@style/textStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="情绪"
-            tools:textColor="@color/colorPrimary"
             android:text="@{@string/emotion+result.emotion.type}"
-            app:layout_constraintTop_toBottomOf="@+id/tv_expression"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="14dp"
             app:layout_constraintStart_toStartOf="parent"
-           />
+            app:layout_constraintTop_toBottomOf="@+id/tv_expression"
+            tools:text="情绪"
+            tools:textColor="@color/colorPrimary" />
+
         <TextView
             android:id="@+id/tv_glasses"
             style="@style/textStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="眼镜"
-            tools:textColor="@color/colorPrimary"
             android:text="@{@string/glasses+result.glasses.type}"
+            android:layout_marginStart="14dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_emotion"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-           />
+            tools:text="眼镜"
+            tools:textColor="@color/colorPrimary" />
+
         <TextView
-            style="@style/textStyle"
             android:id="@+id/tv_position"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="@{position}"
+            style="@style/textStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@{position}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
