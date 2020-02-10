@@ -21,7 +21,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/darker_gray"
         android:orientation="vertical">
 
         <com.eternal.demo.FaceImageView
@@ -34,6 +33,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="15dp"
+           android:paddingStart="1dp"
+            android:paddingBottom="15dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
 
         <TextView
             android:id="@+id/tv_age"
@@ -64,8 +75,8 @@
             style="@style/textStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/race+result.race.type}"
             android:layout_marginStart="14dp"
+            android:text="@{@string/race+result.race.type}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_sex"
             tools:text="种族"
@@ -76,8 +87,8 @@
             style="@style/textStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/beauty+result.beauty}"
             android:layout_marginStart="14dp"
+            android:text="@{@string/beauty+result.beauty}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_race"
             tools:text="颜值"
@@ -88,8 +99,8 @@
             style="@style/textStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/expression+result.expression.type}"
             android:layout_marginStart="14dp"
+            android:text="@{@string/expression+result.expression.type}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_beauty"
             tools:text="表情"
@@ -100,8 +111,8 @@
             style="@style/textStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/emotion+result.emotion.type}"
             android:layout_marginStart="14dp"
+            android:text="@{@string/emotion+result.emotion.type}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_expression"
             tools:text="情绪"
@@ -112,13 +123,14 @@
             style="@style/textStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{@string/glasses+result.glasses.type}"
             android:layout_marginStart="14dp"
+            android:text="@{@string/glasses+result.glasses.type}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_emotion"
             tools:text="眼镜"
             tools:textColor="@color/colorPrimary" />
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
             android:id="@+id/tv_position"
             style="@style/textStyle"
